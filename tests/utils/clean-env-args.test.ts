@@ -1,4 +1,4 @@
-import { cleanEnvArgs } from '../../src/utils/clean-env-args';
+import { cleanEnvArgs, parseBooleanEnv, parseArrayEnv } from '../../src/utils/clean-env-args';
 
 describe('cleanEnvArgs', () => {
   it('should remove undefined values from the object', () => {
@@ -115,5 +115,81 @@ describe('cleanEnvArgs', () => {
       zeroString: '0',
       numberString: '123',
     });
+  });
+});
+
+describe('parseBooleanEnv', () => {
+  it('should return true for "true"', () => {
+    expect(parseBooleanEnv('true')).toBe(true);
+  });
+
+  it('should return true for "TRUE" (case-insensitive)', () => {
+    expect(parseBooleanEnv('TRUE')).toBe(true);
+  });
+
+  it('should return true for "1"', () => {
+    expect(parseBooleanEnv('1')).toBe(true);
+  });
+
+  it('should return true for "yes"', () => {
+    expect(parseBooleanEnv('yes')).toBe(true);
+  });
+
+  it('should return true for "on"', () => {
+    expect(parseBooleanEnv('on')).toBe(true);
+  });
+
+  it('should return false for "false"', () => {
+    expect(parseBooleanEnv('false')).toBe(false);
+  });
+
+  it('should return false for "0"', () => {
+    expect(parseBooleanEnv('0')).toBe(false);
+  });
+
+  it('should return false for empty string', () => {
+    expect(parseBooleanEnv('')).toBe(false);
+  });
+
+  it('should return false for undefined', () => {
+    expect(parseBooleanEnv(undefined)).toBe(false);
+  });
+
+  it('should return false for random string', () => {
+    expect(parseBooleanEnv('random')).toBe(false);
+  });
+});
+
+describe('parseArrayEnv', () => {
+  it('should parse comma-separated values', () => {
+    expect(parseArrayEnv('a,b,c')).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should parse space-separated values', () => {
+    expect(parseArrayEnv('a b c')).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should parse mixed comma and space separated values', () => {
+    expect(parseArrayEnv('a, b c, d')).toEqual(['a', 'b', 'c', 'd']);
+  });
+
+  it('should trim whitespace from values', () => {
+    expect(parseArrayEnv('  a  ,  b  ')).toEqual(['a', 'b']);
+  });
+
+  it('should filter out empty values', () => {
+    expect(parseArrayEnv('a,,b, ,c')).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should return undefined for empty string', () => {
+    expect(parseArrayEnv('')).toBeUndefined();
+  });
+
+  it('should return undefined for undefined input', () => {
+    expect(parseArrayEnv(undefined)).toBeUndefined();
+  });
+
+  it('should return undefined for whitespace-only string', () => {
+    expect(parseArrayEnv('   ')).toBeUndefined();
   });
 });

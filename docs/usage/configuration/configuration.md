@@ -302,9 +302,16 @@ For complex configurations, you can use JSON configuration files:
 | `USER_ACCESS_TOKEN` | `-u, --user-access-token` | User access token | `u-zzzzz` |
 | `LARK_TOOLS` | `-t, --tools` | List of enabled API tools | `im.v1.message.create,calendar.v4.calendar.list` |
 | `LARK_DOMAIN` | `-d, --domain` | API domain | `https://open.feishu.cn` |
-| `LARK_TOKEN_MODE` | `--token-mode` | Token mode | `auto` |
+| `LARK_TOKEN_MODE` | `--token-mode` | Token mode | `auto`, `user_access_token`, `tenant_access_token` |
+| `LARK_OAUTH` | `--oauth` | Enable OAuth authentication | `true`, `1`, `yes`, `on` |
+| `LARK_SCOPE` | `--scope` | OAuth permission scopes | `offline_access,docx:document` |
+| `LARK_LANGUAGE` | `-l, --language` | Tool language | `zh`, `en` |
+| `LARK_TOOL_NAME_CASE` | `-c, --tool-name-case` | Tool naming format | `snake`, `camel`, `kebab`, `dot` |
+| `LARK_MODE` | `-m, --mode` | Transport mode | `stdio`, `sse`, `streamable` |
+| `LARK_HOST` | `--host` | Listen host | `localhost` |
+| `LARK_PORT` | `-p, --port` | Listen port | `3000` |
 
-> ⚠️ **Note**: Other parameters (such as `-l`, `-c`, `-m`, `--host`, `-p`, `--oauth`, etc.) do not support environment variables and can only be specified through command line parameters.
+> 💡 **Tip**: For `LARK_OAUTH`, accepted truthy values are: `true`, `1`, `yes`, `on` (case-insensitive). For `LARK_SCOPE` and `LARK_TOOLS`, you can use comma or space separated values.
 
 ### Configuration File Fields
 

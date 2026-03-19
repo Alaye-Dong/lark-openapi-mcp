@@ -302,9 +302,16 @@ export LARK_TOKEN_MODE=auto
 | `USER_ACCESS_TOKEN` | `-u, --user-access-token` | 用户访问令牌 | `u-zzzzz` |
 | `LARK_TOOLS` | `-t, --tools` | 启用的API工具列表 | `im.v1.message.create,calendar.v4.calendar.list` |
 | `LARK_DOMAIN` | `-d, --domain` | API域名 | `https://open.feishu.cn` |
-| `LARK_TOKEN_MODE` | `--token-mode` | 令牌模式 | `auto` |
+| `LARK_TOKEN_MODE` | `--token-mode` | 令牌模式 | `auto`, `user_access_token`, `tenant_access_token` |
+| `LARK_OAUTH` | `--oauth` | 启用OAuth认证 | `true`, `1`, `yes`, `on` |
+| `LARK_SCOPE` | `--scope` | OAuth权限范围 | `offline_access,docx:document` |
+| `LARK_LANGUAGE` | `-l, --language` | 工具语言 | `zh`, `en` |
+| `LARK_TOOL_NAME_CASE` | `-c, --tool-name-case` | 工具命名格式 | `snake`, `camel`, `kebab`, `dot` |
+| `LARK_MODE` | `-m, --mode` | 传输模式 | `stdio`, `sse`, `streamable` |
+| `LARK_HOST` | `--host` | 监听主机 | `localhost` |
+| `LARK_PORT` | `-p, --port` | 监听端口 | `3000` |
 
-> ⚠️ **注意**：其他参数（如 `-l`, `-c`, `-m`, `--host`, `-p`, `--oauth` 等）不支持环境变量，只能通过命令行参数指定。
+> 💡 **提示**：`LARK_OAUTH` 接受的真值包括：`true`、`1`、`yes`、`on`（不区分大小写）。`LARK_SCOPE` 和 `LARK_TOOLS` 支持逗号或空格分隔的值。
 
 ### 配置文件字段
 

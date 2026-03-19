@@ -1,4 +1,4 @@
-import { cleanEnvArgs } from './clean-env-args';
+import { cleanEnvArgs, parseBooleanEnv, parseArrayEnv } from './clean-env-args';
 import { currentVersion } from './version';
 import envPaths from 'env-paths';
 
@@ -19,14 +19,23 @@ export const OAPI_MCP_DEFAULT_ARGS = {
   port: '3000',
 };
 
-export const OAPI_MCP_ENV_ARGS = cleanEnvArgs({
-  appId: process.env.APP_ID,
-  appSecret: process.env.APP_SECRET,
-  userAccessToken: process.env.USER_ACCESS_TOKEN,
-  tokenMode: process.env.LARK_TOKEN_MODE,
-  tools: process.env.LARK_TOOLS,
-  domain: process.env.LARK_DOMAIN,
-});
+export const OAPI_MCP_ENV_ARGS = {
+  ...cleanEnvArgs({
+    appId: process.env.APP_ID,
+    appSecret: process.env.APP_SECRET,
+    userAccessToken: process.env.USER_ACCESS_TOKEN,
+    tokenMode: process.env.LARK_TOKEN_MODE,
+    tools: process.env.LARK_TOOLS,
+    domain: process.env.LARK_DOMAIN,
+    language: process.env.LARK_LANGUAGE,
+    toolNameCase: process.env.LARK_TOOL_NAME_CASE,
+    mode: process.env.LARK_MODE,
+    host: process.env.LARK_HOST,
+    port: process.env.LARK_PORT,
+  }),
+  oauth: parseBooleanEnv(process.env.LARK_OAUTH),
+  scope: parseArrayEnv(process.env.LARK_SCOPE),
+};
 
 export enum OAPI_MCP_ERROR_CODE {
   USER_ACCESS_TOKEN_INVALID = 99991668,
